@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springsecurity_sso.dao.UserMapper">
+
+    <select id="getUserByUsername" parameterType="java.lang.String" resultType="user" resultMap="baseMap" >
+        SELECT id, user_name, password, avatar, gmt_create FROM sys_user WHERE user_name = #{username}
+    </select>
+
+    <insert id="insertUser" parameterType="user" >
+        INSERT INTO sys_user(id, user_name, password, avatar) SELECT #{id},#{username},#{password},#{avatar}
+        WHERE NOT EXISTS(SELECT id FROM sys_user WHERE user_name = #{username})
+    </insert>
+
+
+    <resultMap id="baseMap" type="user" >
+        <id property="id" column="id" />
+        <result property="username" column="user_name" />
+        <result property="password" column="password" />
+        <result property="avatar" column="avatar" />
+        <result property="create" column="gmt_create" />
+    </resultMap>
+
+</mapper>

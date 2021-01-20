@@ -2,8 +2,17 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/sso_db?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT-8
+    url: jdbc:mysql://47.107.34.229:3306/lifeonline_sso?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT-8
     username: root
     password: 960918
+  profiles:
+    active: dev
 server:
   port: 8090
+mybatis:
+  type-aliases-package: org.springsecurity_sso.model.entity
+  mapper-locations: classpath:/mapper/*.xml
+  configuration: #下划线映射到驼峰
+    map-underscore-to-camel-case: true
+logging:
+  level.org.springsecurity_sso: debug

@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.web.cors.CorsUtils;
 import org.springsecurity_sso.interceptor.AccessDecisionHandler;
+import org.springsecurity_sso.interceptor.handler.AccessDeniedHandlerImpl;
+import org.springsecurity_sso.interceptor.handler.AuthenticationFailHandlerImpl;
+import org.springsecurity_sso.interceptor.handler.AuthenticationSuccessHandlerImpl;
 import org.springsecurity_sso.service.Impl.UserServiceImpl;
 
 
@@ -43,8 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 return o;
             }
         })
-            .and()
-            .cors().disable().csrf().disable();
+            .and().formLogin()
+                  .successHandler(new AuthenticationSuccessHandlerImpl())
+                  .failureHandler(new AuthenticationFailHandlerImpl())
+                  .and()
+            .cors().disable().csrf().disable()
+            .exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl());
 
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springsecurity_sso.dao.MenuMapper">
+
+    <select id="getAllMenu" >
+        SELECT id, detail, path, parent_id FROM sys_menu
+    </select>
+
+    <resultMap id="baseMap" type="menu" >
+        <id property="id" column="id" />
+        <result property="path" column="path" />
+        <result property="detail" column="detail" />
+    </resultMap>
+
+</mapper>
